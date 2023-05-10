@@ -7,9 +7,8 @@ def allQuestionsWithЕheTag(tag):
     now = int(datetime.datetime.utcnow().timestamp())
 
     url = 'https://api.stackexchange.com/2.3'
-    res = requests.get(f'{url}/questions?order=desc&tagged=Python&site=stackoverflow').json()
-
-    sorted_res_list = sorted([question for question in res['items'] if question['creation_date'] >= now - 172800], key=lambda x: x['creation_date'], reverse=True)
+    res = requests.get(f'{url}/questions?fromdate={now - 172800}&todate={now}&order=desc&tagged=Python&sort=activity&site=stackoverflow').json()
+    sorted_res_list = sorted(res['items'], key=lambda x: x['creation_date'], reverse=True)
 
     return sorted_res_list
 
